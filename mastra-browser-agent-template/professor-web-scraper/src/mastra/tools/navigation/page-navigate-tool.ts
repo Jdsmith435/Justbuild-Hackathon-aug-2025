@@ -1,12 +1,12 @@
-import { createTool } from '@mastra/core';
-import z from 'zod';
-import { sessionManager } from '../../lib/stage-hand';
+import { createTool } from "@mastra/core";
+import z from "zod";
+import { getStagehandInstance } from "../../utils/agent-utils";
 
 export const pageNavigateTool = createTool({
-  id: 'web-navigate',
-  description: 'Navigate to a URL in the browser',
+  id: "web-navigate",
+  description: "Navigate to a URL in the browser",
   inputSchema: z.object({
-    url: z.string().describe('URL to navigate to'),
+    url: z.string().describe("URL to navigate to"),
   }),
   outputSchema: z.object({
     success: z.boolean(),
@@ -16,14 +16,16 @@ export const pageNavigateTool = createTool({
   }),
   execute: async ({ context }) => {
     try {
-      const stagehand = await sessionManager.ensureStagehand();
+      const stagehand = await getStagehandInstance();
 
       // Navigate to the URL
       await stagehand.page.goto(context.url);
 
       // Get page title and current URL
       const title = await stagehand.page.evaluate(() => document.title);
-      const currentUrl = await stagehand.page.evaluate(() => window.location.href);
+      const currentUrl = await stagehand.page.evaluate(
+        () => window.location.href
+      );
 
       return {
         success: true,
