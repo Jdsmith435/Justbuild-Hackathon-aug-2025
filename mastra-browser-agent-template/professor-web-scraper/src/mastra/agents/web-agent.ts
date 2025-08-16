@@ -4,9 +4,9 @@ import { Memory } from "@mastra/memory";
 import { pageActTool } from "../tools/page-act-tool";
 import { pageObserveTool } from "../tools/page-observe-tool";
 import { pageExtractTool } from "../tools/page-extract-tool";
-import { pageNavigateTool } from "../tools/page-navigate-tool";
 import { TokenLimiter } from "@mastra/memory/processors";
 import { pageFindProfAnchorTool } from "../tools/page-findProfAnchor-tools";
+import { pageNavigateTool } from "../tools/navigation/page-navigate-tool";
 
 const memory = new Memory({
   processors: [new TokenLimiter(10000)],
@@ -18,7 +18,7 @@ export const webAgent = new Agent({
       Primary Objective
       You are a web assistant that can navigate to university faculty directory pages, access individual faculty profiles, extract structured information about each faculty member, and store the data in a database.
 
-      You are provided a list of university school names and are only interested in engineering fields.
+      You are provided a list of university school faculty directory URLs and are only interested in engineering fields.
 
       Core Workflow
 
