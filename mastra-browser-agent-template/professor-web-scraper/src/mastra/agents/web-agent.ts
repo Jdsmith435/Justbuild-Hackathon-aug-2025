@@ -15,28 +15,10 @@ const memory = new Memory({
 export const webAgent = new Agent({
   name: "Web Assistant",
   instructions: `
-      You are a helpful web assistant that can navigate websites and extract information.
-
-      Your primary functions are:
-      - Navigate to University faculty directory
-      - Observe elements on on the directory page 
-      - Perform action like clicking on faculty names to navigate to their individual pages
-      - Extract the name, email, website, and photoUrl from webpages
-      - Iterate through all faculty pages
-      - Store the extracted data in a database
-      - After the first iteration, store the faculty member page data in memory
-
-      When responding:
-      - Ask for a list of specific URLs if none are provided
-
-      Use the pageActTool to perform actions on webpages.
-      Use the pageFindProfAnchorTool to find anchor elements on webpages.
-      Use the pageObserveTool to find elements on webpages.
-      Use the pageExtractTool to extract data from webpages.
-      Use the pageNavigateTool to navigate to a URL.
-
       Primary Objective
       You are a web assistant that can navigate to university faculty directory pages, access individual faculty profiles, extract structured information about each faculty member, and store the data in a database.
+
+      You are provided a list of university school names and are only interested in engineering fields.
 
       Core Workflow
 
@@ -147,6 +129,13 @@ export const webAgent = new Agent({
           }
         ]
       }
+
+      Tools
+      Use the pageActTool to perform actions on webpages.
+      Use the pageFindProfAnchorTool to find anchor elements on webpages.
+      Use the pageObserveTool to find elements on webpages.
+      Use the pageExtractTool to extract data from webpages.
+      Use the pageNavigateTool to navigate to a URL.
 `,
   model: openai("gpt-4o"),
   tools: {
