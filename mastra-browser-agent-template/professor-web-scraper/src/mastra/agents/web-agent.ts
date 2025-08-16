@@ -6,6 +6,7 @@ import { pageObserveTool } from "../tools/page-observe-tool";
 import { pageExtractTool } from "../tools/page-extract-tool";
 import { pageNavigateTool } from "../tools/page-navigate-tool";
 import { TokenLimiter } from "@mastra/memory/processors";
+import { pageFindProfAnchorTool } from "../tools/page-findProfAnchor-tools";
 
 const memory = new Memory({
   processors: [new TokenLimiter(10000)],
@@ -29,12 +30,19 @@ export const webAgent = new Agent({
       - Ask for a list of specific URLs if none are provided
 
       Use the pageActTool to perform actions on webpages.
+      Use the pageFindProfAnchorTool to find anchor elements on webpages.
       Use the pageObserveTool to find elements on webpages.
       Use the pageExtractTool to extract data from webpages.
       Use the pageNavigateTool to navigate to a URL.
 `,
   model: openai("gpt-4o"),
-  tools: { pageActTool, pageObserveTool, pageExtractTool, pageNavigateTool },
+  tools: {
+    pageActTool,
+    pageObserveTool,
+    pageExtractTool,
+    pageNavigateTool,
+    pageFindProfAnchorTool,
+  },
   memory: memory,
 });
 

@@ -2,28 +2,23 @@ import { createTool } from "@mastra/core";
 import z from "zod";
 import { sessionManager } from "../../lib/stage-hand";
 
-export const pageObserveTool = createTool({
-  id: "web-observe",
-  description: "Observe elements on a webpage using Stagehand to plan actions",
+export const pageFindProfAnchorTool = createTool({
+  id: "web-findProfAnchor",
+  description:
+    "Find anchor elements on a webpage using Stagehand to navigate to",
   inputSchema: z.object({
-    url: z
-      .string()
-      .optional()
-      .describe("URL to navigate to (optional if already on a page)"),
     instruction: z
       .string()
-      .describe('What to observe (e.g., "find the sign in button")'),
+      .describe("Find an achor element representing a faculty member page"),
   }),
-  outputSchema: z.array(z.any()).describe("Array of observable actions"),
+  outputSchema: z.array(z.any()).describe("Array of navigation actions"),
   execute: async ({ context }) => {
-    return await performWebObservation(context.url, context.instruction);
+    return await performWebObservation(context.instruction);
   },
 });
 
-const performWebObservation = async (url?: string, instruction?: string) => {
-  console.log(
-    `Starting observation${url ? ` for ${url}` : ""} with instruction: ${instruction}`
-  );
+const performWebObservation = async (instruction?: string) => {
+  console.log(`Starting anchor finding with instruction: ${instruction}`);
 
   try {
     const stagehand = await sessionManager.ensureStagehand();
@@ -39,20 +34,13 @@ const performWebObservation = async (url?: string, instruction?: string) => {
     }
 
     try {
-      // Navigate to the URL if provided
-      if (url) {
-        console.log(`Navigating to ${url}`);
-        await page.goto(url);
-        console.log(`Successfully navigated to ${url}`);
-      }
-
       // Observe the page
       if (instruction) {
         console.log(`Observing with instruction: ${instruction}`);
         try {
           const actions = await page.observe(instruction);
           console.log(
-            `Observation successful, found ${actions.length} actions`
+            `Anchor finding successful, found ${actions.length} actions`
           );
           return actions;
         } catch (observeError) {
