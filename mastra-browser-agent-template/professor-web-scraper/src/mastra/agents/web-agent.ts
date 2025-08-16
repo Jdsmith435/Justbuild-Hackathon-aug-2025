@@ -22,7 +22,8 @@ export const webAgent = new Agent({
       - Perform action like clicking on faculty names to navigate to their individual pages
       - Extract the name, email, website, and photoUrl from webpages
       - Iterate through all faculty pages
-      - Store the data in a database
+      - Store the extracted data in a database
+      - After the first iteration, store the faculty member page data in memory
 
       When responding:
       - Ask for a list of specific URLs if none are provided
