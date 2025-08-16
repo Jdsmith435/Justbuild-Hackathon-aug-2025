@@ -131,11 +131,8 @@ export const webAgent = new Agent({
       }
 
       Tools
-      Use the pageActTool to perform actions on webpages.
-      Use the pageFindProfAnchorTool to find anchor elements on webpages.
-      Use the pageObserveTool to find elements on webpages.
-      Use the pageExtractTool to extract data from webpages.
-      Use the pageNavigateTool to navigate to a URL.
+      Use the web-navigate to navigate to a schools faculty directory page.
+      Use the directory-html-parsing to find all faculty member urls.
 `,
   model: openai("gpt-4o"),
   tools: {

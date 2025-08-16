@@ -4,7 +4,8 @@ import { getStagehandInstance } from "../../utils/agent-utils";
 
 export const pageNavigateTool = createTool({
   id: "web-navigate",
-  description: "Navigate to a URL in the browser",
+  description:
+    "Navigate to a URL in the browser and return the page title and current URL.",
   inputSchema: z.object({
     url: z.string().describe("URL to navigate to"),
   }),
