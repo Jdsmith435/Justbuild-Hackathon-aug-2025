@@ -9,7 +9,7 @@ export const directoryHtmlParsingTool = createTool({
     instruction: z
       .string()
       .describe(
-        "Look for all the anchor (<a>) elements that point to a faculty member page."
+        "Look for all the anchor (<a>) elements that point to a faculty member page and append the href attribute to the current url."
       ),
   }),
   outputSchema: z

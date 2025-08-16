@@ -1,14 +1,9 @@
 import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
-import { pageActTool } from "../tools/page-act-tool";
-import { pageObserveTool } from "../tools/page-observe-tool";
-import { pageExtractTool } from "../tools/page-extract-tool";
 import { TokenLimiter } from "@mastra/memory/processors";
-import { pageFindProfAnchorTool } from "../tools/page-findProfAnchor-tools";
 import { pageNavigateTool } from "../tools/navigation/page-navigate-tool";
 import { directoryHtmlParsingTool } from "../tools/extract/directory-html-parsing-tool";
-import { profUrlNavTool } from "../tools/navigation/prof-url-nav-tool";
 import { profInformationExtractTool } from "../tools/extract/prof-information-extract-tool";
 
 const memory = new Memory({
@@ -134,15 +129,14 @@ export const webAgent = new Agent({
       }
 
       Tools
-      Use the web-navigate to navigate to a schools faculty directory page.
+      Use the web-navigate to navigate to a page.
       Use the directory-html-parsing to find all faculty member urls.
-      Use the prof-url-nav to navigate to a faculty member page.
+      Use the prof-information-extract to extract information from a faculty member page. This requires you to be on the faculty member page.
 `,
   model: openai("gpt-4o"),
   tools: {
     pageNavigateTool,
     directoryHtmlParsingTool,
-    profUrlNavTool,
     profInformationExtractTool,
   },
   memory: memory,
